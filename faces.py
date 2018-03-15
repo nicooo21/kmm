@@ -339,6 +339,8 @@ def kMedoids(points, k, init='random', plot=False) :
     # for using centroids
     if init == 'cheat':
         cluster_init = cheat_init(points)
+    elif init == 'random':
+        cluster_init = random_init(points, k)
 
     # keeps track of iteration number
     iterations = 1
@@ -357,8 +359,7 @@ def kMedoids(points, k, init='random', plot=False) :
         curClusterSet.members = cUpdate.clusters
         
         # checks if it is centroid or metoid
-        if init == 'cheat':
-            cluster_init = curClusterSet.medoids()
+        cluster_init = curClusterSet.medoids()
 
         
 
@@ -394,9 +395,8 @@ def main() :
     points = generate_points_2d(20)
 
     kMeans(points, 3, 'random', True)
-
-    kMedoids(points, 3, init='cheat', plot=True)
-
+    kMedoids(points, 3, 'random', True)
+    kMedoids(points, 3, 'cheat', True)
     kMeans(points, 3, 'cheat', True)
 
     ### ========== TODO : END ========== ###
