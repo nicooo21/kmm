@@ -59,7 +59,7 @@ class Point(object) :
 
 class Cluster(object) :
     
-    def __init__(self, points) :
+    def __init__(self, center) :
         """
         A cluster (set of points).
         
@@ -67,7 +67,9 @@ class Cluster(object) :
         --------------------
             points -- list of Points, cluster elements
         """        
-        self.points = points
+        self.points = []
+        self.center = center
+        print self.center
     
     
     def __str__(self) :
@@ -137,7 +139,7 @@ class Cluster(object) :
         centroidYAvg = yCoordSum/numPoints
         
 
-        centroid = Point("Centroid", count, np.array([centroidXAvg]), centroidYAvg])
+        centroid = Point("Centroid", cluster_label, np.array([centroidXAvg, centroidYAvg]))
         return centroid
         ### ========== TODO : END ========== ###
     
@@ -159,17 +161,17 @@ class Cluster(object) :
         numPoints = len(self.points)
 
         # Initialize min to compare with other values 
-        min = sys.maxint
+        minNum = 1000000
         medoid = None
 
         # go through each point and calculate total euclidian distance from each point 
-        for p in self.points
+        for p in self.points:
             curDistance = 0
-            for otherp self.points
+            for otherp in self.points:
                 curDistance += p.distance(otherp)
             # compare with min, replacing min 
-            if curDistance < min:
-                min = curDistance
+            if curDistance < minNum:
+                minNum = curDistance
                 medoid = p
 
         return medoid
@@ -293,8 +295,12 @@ class ClusterSet(object):
             flag  -- bool, True if both cluster sets are equivalent or False otherwise
         """
         
+        if other is None:
+            return False
+
         if len(self.members) != len(other.members):
             return False
+
         
         matched = []
         for cluster1 in self.members :
