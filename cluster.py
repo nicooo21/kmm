@@ -231,6 +231,10 @@ class ClusterSet(object):
         ### ========== TODO : START ========== ###
         # part 2b: implement
         centroids = []
+
+        # go through each cluster and call centroid function
+        for cluster in self.members:
+            centroids.append(cluster.centroid())
         return centroids
         ### ========== TODO : END ========== ###
     
@@ -246,7 +250,12 @@ class ClusterSet(object):
         
         ### ========== TODO : START ========== ###
         # part 2b: implement
+
+        # go through each cluster and call medoid function
         medoids = []
+        for cluster in self.members:
+            medoids.append(cluster.medoid())
+        
         return medoids
         ### ========== TODO : END ========== ###
     
