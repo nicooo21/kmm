@@ -302,14 +302,15 @@ def kMeans(points, k, init='random', plot=False) :
         print cluster_init[2]
 
         # plots iteration
-        if plot is True:
-            title = 'Iteration: %d' % iterations
-            plot_clusters(curClusterSet, title, init)
+        
 
         
 
         if curClusterSet.equivalent(prevClusterSet) is False:
             prevClusterSet.members = curClusterSet.members
+            if plot is True:
+                title = 'Iteration: %d' % iterations
+                plot_clusters(curClusterSet, title, init)
             iterations += 1
         else:
             break
@@ -355,17 +356,17 @@ def kMedoids(points, k, init='random', plot=False) :
         # checks if it is centroid or metoid
         if init == 'cheat':
             cluster_init = curClusterSet.medoids()
-        
-
-        # plots iteration
-        if plot is True:
-            title = 'Iteration: %d' % iterations
-            plot_clusters(curClusterSet, title, init)
 
         
 
         if curClusterSet.equivalent(prevClusterSet) is False:
             prevClusterSet.members = curClusterSet.members
+
+            # plots iteration
+            if plot is True:
+                title = 'Iteration: %d' % iterations
+                plot_clusters(curClusterSet, title, init)
+
             iterations += 1
         else:
             break
