@@ -29,6 +29,7 @@ class Point(object) :
         self.attrs = attrs
     
     
+    
     #============================================================
     # utilities
     #============================================================
@@ -112,7 +113,31 @@ class Cluster(object) :
         ### ========== TODO : START ========== ###
         # part b: implement
         # set the centroid label to any value (e.g. the most common label in this cluster)
-        centroid = None
+
+        # Get average of x values and y values
+
+        # First get number of points
+        numPoints = len(self.points)
+
+        # Get sum of x and y values, and labels of points
+        xCoordSum = 0
+        yCoordSum = 0
+        labels = []
+        for p in self.points:
+            xCoordSum += p.attrs[0]
+            yCoordSum += p.attrs[1]
+            labels.append(p.label)
+        
+        # get mode of labels
+        cluster_label, count = stats.mode(labels)
+
+        # get average of x and y coordinates
+
+        centroidXAvg = xCoordSum/numPoints
+        centroidYAvg = yCoordSum/numPoints
+        
+
+        centroid = Point("Centroid", count, np.array([centroidXAvg]), centroidYAvg])
         return centroid
         ### ========== TODO : END ========== ###
     
@@ -129,7 +154,24 @@ class Cluster(object) :
         
         ### ========== TODO : START ========== ###
         # part b: implement
+
+        # get number of points 
+        numPoints = len(self.points)
+
+        # Initialize min to compare with other values 
+        min = sys.maxint
         medoid = None
+
+        # go through each point and calculate total euclidian distance from each point 
+        for p in self.points
+            curDistance = 0
+            for otherp self.points
+                curDistance += p.distance(otherp)
+            # compare with min, replacing min 
+            if curDistance < min:
+                min = curDistance
+                medoid = p
+
         return medoid
         ### ========== TODO : END ========== ###
     
